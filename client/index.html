@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,35 +11,113 @@
         input,
         button {
             font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        #controls {
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .flex input[type="text"],
+        .flex button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .flex button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .flex button:hover {
+            background-color: #0056b3;
+        }
+        
+        .flex button.warning {
+            background-color: #dc3545;
+        }
+        
+        .flex button.warning:hover {
+            background-color: #c82333;
+        }
+        
+        #html_talks {
+            margin: 10px;
         }
         
         #html_talks span {
             display: block;
-            background-color: #efefff;
+            background-color: #ffffff;
             margin: 5px;
-            padding: 5px;
+            padding: 10px;
             border-radius: 10px;
-            clear: both;
-            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: calc(100% - 20px);
         }
         
         #html_info {
             display: none;
-            padding: 0 30px 0 30px;
-            font-size: xx-small;
-            background-color: #eff;
+            padding: 10px;
+            margin: 10px;
+            font-size: small;
+            background-color: #e9f7ff;
             text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         input[type="text"]:disabled {
             background-color: #e2e2e2;
-            /* Light gray background color */
             color: #555;
-            /* Dark gray text color */
         }
         
         input[type="text"]::placeholder {
             color: #aaa;
+        }
+        
+        .card {
+            margin: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .card header {
+            margin-bottom: 10px;
+        }
+        
+        .card h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        
+        .card ul {
+            list-style-type: disc;
+            margin-left: 20px;
         }
     </style>
     <script src="js/cypher.js"></script>
@@ -47,19 +126,19 @@
 <body>
     <div class="flex four" id="controls">
         <div>
-            <small><label for="html_your_id">Your ID</label></small><br/>
+            <small><label for="html_your_id">Your ID</label></small><br />
             <input type="text" placeholder="Your ID" id='html_your_id'>
         </div>
         <div>
-            <small><label for="html_room_id">Room ID</label></small><br/>
+            <small><label for="html_room_id">Room ID</label></small><br />
             <input type="text" placeholder="Room ID" id='html_room_id'>
         </div>
         <div>
-            <small><label for="html_secret">Secret Key</label></small><br/>
+            <small><label for="html_secret">Secret Key</label></small><br />
             <input type="text" placeholder="Secrets. Has to be same for all users in room" id='html_secret'>
         </div>
         <div>
-            <small><label>Start/Stop</label></small><br/>
+            <small><label>Start/Stop</label></small><br />
             <button onclick='connect(this)' id='html_connect_btn' data-tooltip="your name, room, secrets. Url will be update after connect" class="tooltip-left">Connect</button>
             <button onclick='disconnect(this)' id='html_disconnect_btn' style="display: none;" class="warning">Disconnect</button>
         </div>
@@ -73,23 +152,24 @@
     <div id="html_help" class="flex">
         <article class="card">
             <header>
-                <h3>end to end encrypted group chat</h3>
+                <h3>End to End encrypted group chat</h3>
             </header>
             <p>
-                It offers a dependable group chat system with end-to-end encryption. This functionality is facilitated through WebSocket technology and messaging protocols.</p>
+                It offers a dependable group chat system with end-to-end encryption. This functionality is facilitated through WebSocket technology and messaging protocols.
+            </p>
             <ul>
                 <li>Your ID serves as your username, allowing any characters except :.</li>
-                <li>The room designation is essential for joining the chat, requiring all participants to converge in the same room.
-                    <li>Each participant utilizes a shared secret key to generate encryption keys for message security, ensuring uniformity among all chat members.</li>
-                    <li>Upon establishing a connection, your browser's URL will automatically update. You can readily distribute this modified URL to other participants for seamless integration.</li>
+                <li>The room designation is essential for joining the chat, requiring all participants to converge in the same room.</li>
+                <li>Each participant utilizes a shared secret key to generate encryption keys for message security, ensuring uniformity among all chat members.</li>
+                <li>Upon establishing a connection, your browser's URL will automatically update. You can readily distribute this modified URL to other participants for seamless integration.</li>
             </ul>
-            
         </article>
     </div>
     <div id="html_info" class="flex"></div>
     <div id='html_talks' class="flex">
         <!--This will be added by JavaScript -->
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var hash = window.location.hash.substring(1); // Get the hash value excluding the '#'
