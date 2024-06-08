@@ -1,5 +1,3 @@
-# Websocket Server in Go
-https://github.com/madeindra/golang-websocket
 
 ## Running the server
 1. Clone this repository
@@ -88,6 +86,3 @@ While this repository is close to a pub-sub, it can still be used for a chat ser
 For example, we can add a function on socket connected so that client will be automatically subscribes to their own ID as a topic. Other clients then will use those user's ID as a topic to publish a message.
 
 I have tried building such solution combined with Authorization to prevent other user from subscribing to other's ID and it does work.
-
-## Credit
-This repository is inspired by [Golang-PubSub by @tabvn](https://github.com/tabvn/golang-pubsub-youtube)
